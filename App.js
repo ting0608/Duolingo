@@ -11,7 +11,8 @@ import ImageOption from "./src/components/ImageOption/ImageOption.js";
 import Button from "./src/components/button/button";
 import ImageMultipleChoiceQuestion from "./src/components/ImageMultipleChoiceQuestion/ImageMultipleChoice";
 import OpenEndedQuestion from "./src/components/OpenEndedQuestion";
-import questions from "./assets/data/openEndedQuestions";
+//import questions from "./assets/data/openEndedQuestions";
+import questions from "./assets/data/allQuestions";
 
 //function component
 //using arrow function to define the components, could allow to simplify
@@ -50,17 +51,21 @@ const App = () => {
 
   return (
     <View style={styles.root}>
-      {/* <ImageMultipleChoiceQuestion
-        question={currentQuestion}
-        onCorrect={onCorrect}
-        onWrong={onWrong}
-      /> */}
+      {currentQuestion.type === "IMAGE_MULTIPLE_CHOICE" ? (
+        <ImageMultipleChoiceQuestion
+          question={currentQuestion}
+          onCorrect={onCorrect}
+          onWrong={onWrong}
+        />
+      ) : null}
 
-      <OpenEndedQuestion
-        question={currentQuestion}
-        onCorrect={onCorrect}
-        onWrong={onWrong}
-      />
+      {currentQuestion.type === "OPEN_ENDED" ? (
+        <OpenEndedQuestion
+          question={currentQuestion}
+          onCorrect={onCorrect}
+          onWrong={onWrong}
+        />
+      ) : null}
     </View>
   );
 };
