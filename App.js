@@ -6,10 +6,12 @@ import icon from "./assets/icon.png";
 import styles from "./App.styles.js";
 import codegenNativeCommands from "react-native/Libraries/Utilities/codegenNativeCommands";
 import ImageOption from "./src/components/ImageOption/ImageOption.js";
-import questions from "./assets/data/imageMultipleChoiceQuestions";
+//import questions from "./assets/data/imageMultipleChoiceQuestions";
 
 import Button from "./src/components/button/button";
 import ImageMultipleChoiceQuestion from "./src/components/ImageMultipleChoiceQuestion/ImageMultipleChoice";
+import OpenEndedQuestion from "./src/components/OpenEndedQuestion";
+import questions from "./assets/data/openEndedQuestions";
 
 //function component
 //using arrow function to define the components, could allow to simplify
@@ -48,7 +50,13 @@ const App = () => {
 
   return (
     <View style={styles.root}>
-      <ImageMultipleChoiceQuestion
+      {/* <ImageMultipleChoiceQuestion
+        question={currentQuestion}
+        onCorrect={onCorrect}
+        onWrong={onWrong}
+      /> */}
+
+      <OpenEndedQuestion
         question={currentQuestion}
         onCorrect={onCorrect}
         onWrong={onWrong}
