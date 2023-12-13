@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Alert } from "react-native";
+import { Text, View, Alert, image, Image } from "react-native";
 import ImageOption from "../ImageOption/ImageOption";
 import Button from "../button/button";
 import styles from "./styles";
@@ -39,6 +39,7 @@ const ImageMultipleChoiceQuestion = ({ question, onCorrect, onWrong }) => {
         {question.options.map((option) => (
           <ImageOption
             key={option.id} //key is to identify the component
+            // image={option.image}
             image={option.image}
             text={option.text}
             isSelected={selected?.id === option.id}
