@@ -47,15 +47,38 @@ const App = () => {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
-  const onWrong = () => {
-    Alert.alert("wrong! stupid");
+  const restart = () => {
+    setLives(5);
+    setCurrentQuestionIndex(0);
   };
+
+  const onWrong = () => {
+    if (lives <= 1) {
+      Alert.alert("GG. You have no more lives", "One more", [
+        {
+          text: "Try again",
+          onPress: () => {
+            setCurrentQuestionIndex(0);
+            setLives(3);
+          },
+        },
+      ]);
+    } else {
+      Alert.alert("Wrong! stupid");
+      setLives(lives - 1);
+    }
+  };
+
+  const [lives, setLives] = useState(3);
 
   return (
     <View style={styles.root}>
       {/* currentQuestionIndex / questions.length calculates the progress as a ratio of the current question number to the total number of questions. */}
       {/* For example, if the user is on question 5 out of 10, progress would be 0.5, representing 50% completion. */}
-      <Header progress={currentQuestionIndex / questions.length} />
+      <Header
+        progress={currentQuestionIndex / questions.length}
+        lives={lives}
+      />
 
       {currentQuestion.type === "IMAGE_MULTIPLE_CHOICE" ? (
         <ImageMultipleChoiceQuestion

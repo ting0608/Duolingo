@@ -32,7 +32,8 @@ const OpenEndedQuestion = ({ question, onCorrect, onWrong }) => {
         multiline={true}
       />
 
-      <Button text="Check" onPress={onButtonPress} disabled={false} />
+      {/* !input is a way to check if the input is empty */}
+      <Button text="Check" onPress={onButtonPress} disabled={!input} />
     </>
   );
 };

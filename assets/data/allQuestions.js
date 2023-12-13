@@ -96,7 +96,7 @@ export default [
     id: "q4",
     type: "IMAGE_MULTIPLE_CHOICE",
     type: "OPEN_ENDED",
-    text: "皮卡丘",
+    text: "ピカチュウ",
     answer: "pikachu",
   },
   {
