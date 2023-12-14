@@ -7,6 +7,7 @@ import styles from "./App.styles.js";
 import codegenNativeCommands from "react-native/Libraries/Utilities/codegenNativeCommands";
 import ImageOption from "./src/components/ImageOption/ImageOption.js";
 //import questions from "./assets/data/imageMultipleChoiceQuestions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //import Button from "./src/components/button/button";
 import ImageMultipleChoiceQuestion from "./src/components/ImageMultipleChoiceQuestion/ImageMultipleChoice";
@@ -15,6 +16,7 @@ import OpenEndedQuestion from "./src/components/OpenEndedQuestion";
 import questions from "./assets/data/allQuestions";
 
 import Header from "./src/components/Header";
+import { ActivityIndicator } from "react-native";
 
 //function component
 //using arrow function to define the components, could allow to simplify
@@ -23,6 +25,9 @@ const App = () => {
   const [currentQuestion, setCurrentQuestion] = useState(
     questions[currentQuestionIndex]
   );
+
+  const [lives, setLives] = useState(3);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   // useEffect(() => {
   //   console.log(currentQuestion);
@@ -37,6 +42,19 @@ const App = () => {
       setCurrentQuestion(questions[currentQuestionIndex]);
     }
   }, [currentQuestionIndex]);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  //ctrl-cmd-z to call the app menu
+  useEffect(() => {
+    if (hasLoaded) {
+      saveData();
+    }
+    //saveData();
+  }),
+    [lives, currentQuestionIndex, hasLoaded];
 
   //mapping
   // const origin = [1,6,8];
@@ -54,7 +72,15 @@ const App = () => {
 
   const onWrong = () => {
     if (lives <= 1) {
-      Alert.alert("GG. You have no more lives", "One more", [
+      Alert.alert("GG. Pay and get 3 more lives", "Imma just kidding <3", [
+        {
+          text: "Proceed to payment",
+          onPress: () => {
+            setCurrentQuestionIndex(0);
+            setLives(3);
+          },
+        },
+
         {
           text: "Try again",
           onPress: () => {
@@ -66,10 +92,37 @@ const App = () => {
     } else {
       Alert.alert("Wrong! stupid");
       setLives(lives - 1);
+      saveData();
     }
   };
 
-  const [lives, setLives] = useState(3);
+  const saveData = async () => {
+    await AsyncStorage.setItem("lives", lives.toString());
+    await AsyncStorage.setItem(
+      "currentQuestionIndex",
+      currentQuestionIndex.toString()
+    );
+  };
+
+  const loadData = async () => {
+    const loadedLives = await AsyncStorage.getItem("lives");
+    if (loadedLives) {
+      setLives(parseInt(loadedLives));
+    }
+
+    const currentQuestionIndex = await AsyncStorage.getItem(
+      "currentQuestionIndex"
+    );
+    if (currentQuestionIndex) {
+      setCurrentQuestionIndex(parseInt(currentQuestionIndex));
+    }
+
+    setHasLoaded(true); //this is to make sure that the app has loaded before we show the app
+  };
+
+  if (!hasLoaded) {
+    return <ActivityIndicator />;
+  }
 
   return (
     <View style={styles.root}>
