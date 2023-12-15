@@ -15,10 +15,11 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
 
-  mascot: {
-    width: "30%",
-    aspectRatio: 3 / 4,
-    marginRight: 10,
+  Gyarados: {
+    width: 500,
+    height: 500,
+    //aspectRatio: 1 / 1,
+    //marginRight: 10,
   },
   sentenceContainer: {
     borderWidth: 1,

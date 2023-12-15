@@ -17,6 +17,7 @@ import questions from "./assets/data/allQuestions";
 
 import Header from "./src/components/Header";
 import { ActivityIndicator } from "react-native";
+import BlankFill from "./src/components/BlankFillQuestion/BlankFill.js";
 
 //function component
 //using arrow function to define the components, could allow to simplify
@@ -66,7 +67,7 @@ const App = () => {
   };
 
   const restart = () => {
-    setLives(5);
+    setLives(3);
     setCurrentQuestionIndex(0);
   };
 
@@ -90,7 +91,7 @@ const App = () => {
         },
       ]);
     } else {
-      Alert.alert("Wrong! stupid");
+      Alert.alert("Wrong!");
       setLives(lives - 1);
       saveData();
     }
@@ -114,6 +115,7 @@ const App = () => {
       "currentQuestionIndex"
     );
     if (currentQuestionIndex) {
+      //setCurrentQuestionIndex(0);
       setCurrentQuestionIndex(parseInt(currentQuestionIndex));
     }
 
@@ -133,13 +135,21 @@ const App = () => {
         lives={lives}
       />
 
-      {currentQuestion.type === "IMAGE_MULTIPLE_CHOICE" ? (
+      {currentQuestion.type === "BLANK_FILL" && (
+        <BlankFill
+          question={currentQuestion}
+          onCorrect={onCorrect}
+          onWrong={onWrong}
+        />
+      )}
+
+      {currentQuestion.type === "IMAGE_MULTIPLE_CHOICE" && (
         <ImageMultipleChoiceQuestion
           question={currentQuestion}
           onCorrect={onCorrect}
           onWrong={onWrong}
         />
-      ) : null}
+      )}
 
       {currentQuestion.type === "OPEN_ENDED" ? (
         <OpenEndedQuestion

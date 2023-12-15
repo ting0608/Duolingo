@@ -1,27 +1,14 @@
 export default [
-  // {
-  //   id: "q0",
-  //   type: "FILL_IN_THE_BLANK",
-  //   parts: [
-  //     {
-  //       text: "la",
-  //       isBlank: true,
-  //     },
-  //     {
-  //       text: "nino",
-  //       isBlank: true,
-  //     },
-  //     {
-  //       text: "el",
-  //       isBlank: true,
-  //     },
-  //     {
-  //       text: "nina",
-  //       isBlank: true,
-  //     },
-  //   ],
-  //   options: ["la", "el", "nina", "nino", "ella"],
-  // },
+  {
+    id: "q0",
+    type: "BLANK_FILL",
+    textPre: "Gyarados is a",
+    textPost: "type of pokemon",
+    options: ["Flying", "Ice", "Dark", "Dragon"],
+
+    correct: "Flying",
+  },
+
   {
     id: "q1",
     type: "IMAGE_MULTIPLE_CHOICE",
